@@ -10,10 +10,18 @@ export const ChatPage = () => {
   const [chat, setChat] = useState([]);
   const currentUser = Cookies.get("username");
   const currentUserId = Cookies.get("user_id");
-  const token = Cookies.get("jwtToken");
+  const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState("");
+  const token = Cookies.get("jwtToken");
 
-  // console.log(chat);
+  const fetchChat = async () => {
+    const { data } = await axios.get("chat/getChat", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    setChat(data.chat);
+  };
 
   const sendMessage = () => {
     const msgToDb = async () => {
@@ -41,15 +49,13 @@ export const ChatPage = () => {
   };
 
   useEffect(() => {
-    const fetchChat = async () => {
-      const { data } = await axios.get("chat/getChat", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setChat(data.chat);
-    };
-    fetchChat();
+    if (token) {
+      setIsLoading(false);
+      fetchChat();
+    } else
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
   }, []);
 
   useEffect(() => {
@@ -57,7 +63,9 @@ export const ChatPage = () => {
       setChat((prev) => [...prev, data]);
     });
   }, [socket]);
-  // console.log("got ", chat);
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
     <div className="container">
       <SideBar />

@@ -4,7 +4,6 @@ const { StatusCodes } = require('http-status-codes')
 
 module.exports.authUser = (req, res, next) => {
     const authHeader = req.headers.authorization
-    // console.log(authHeader);
     try {
         if (!authHeader || !authHeader.startsWith('Bearer '))
             throw new CustomError("You are logged out, please log in first", StatusCodes.BAD_REQUEST)

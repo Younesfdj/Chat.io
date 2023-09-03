@@ -88,7 +88,11 @@ export const ChatPage = () => {
   }, [socket]);
 
   if (isLoading) {
-    return <DotWave size={47} speed={1} color="black" backgroundColor="red" />;
+    return (
+      <div className="loading">
+        <DotWave size={47} speed={1} color="black" backgroundColor="red" />
+      </div>
+    );
   }
   return (
     <div className="container">

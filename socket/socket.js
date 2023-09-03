@@ -8,21 +8,26 @@ const { Server } = require('socket.io')
 const server = http.createServer(app)
 const io = new Server(server, {
     cors: {
-        origin: "http://localhost:5173", // origin connection (client @)
+        origin: "http://localhost:5173",
         methods: ["GET", "POST"]
     }
 })
 
-let chat = []
-
-// listen to an event
+let onlineUsers = []
 io.on("connection", (socket) => {
-    console.log("user connected", socket.id);
-
-    // receive a message from the client
+    socket.emit("user-connected")
+    socket.on("user-online", (user) => {
+        if (!onlineUsers.includes(user) && user !== null && user != undefined)
+            onlineUsers.push(user)
+        socket.emit("users-online", onlineUsers)
+    })
+    socket.on("user-loggedout", (username) => {
+        onlineUsers = onlineUsers.filter((usr) => {
+            if (usr !== username) return usr;
+        })
+        socket.broadcast.emit("user-disconnected", onlineUsers)
+    })
     socket.on('send-message', (message) => {
-        // console.log("Message :", message);
-        // send message to other users except you (send to client side)
         socket.broadcast.emit("receive-message", message)
     })
 })

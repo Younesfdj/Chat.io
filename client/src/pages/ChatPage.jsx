@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { DotWave } from "@uiball/loaders";
 import ChatZone from "../components/ChatZone";
 import SideBar from "../components/SideBar";
 import axios from "../axios/axios";
@@ -12,6 +13,7 @@ export const ChatPage = () => {
   const currentUserId = Cookies.get("user_id");
   const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState("");
+  const [onlineUsers, setOnlineUsers] = useState([]);
   const token = Cookies.get("jwtToken");
 
   const fetchChat = async () => {
@@ -49,26 +51,48 @@ export const ChatPage = () => {
   };
 
   useEffect(() => {
+    const handleBeforeUnload = () => {
+      socket.emit("user-loggedout", currentUser);
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
+
+  useEffect(() => {
     if (token) {
       setIsLoading(false);
       fetchChat();
     } else
       setTimeout(() => {
         window.location.reload();
-      }, 1000);
+      }, 1500);
   }, []);
 
   useEffect(() => {
+    socket.on("user-connected", () => {
+      socket.emit("user-online", currentUser);
+      socket.on("users-online", (OnlineUsers) => {
+        setOnlineUsers(OnlineUsers);
+      });
+    });
     socket.on("receive-message", (data) => {
       setChat((prev) => [...prev, data]);
     });
+    socket.on("user-disconnected", (OnlineUsers) => {
+      setOnlineUsers(OnlineUsers);
+    });
   }, [socket]);
+
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <DotWave size={47} speed={1} color="black" backgroundColor="red" />;
   }
   return (
     <div className="container">
-      <SideBar />
+      <SideBar onlineUsers={onlineUsers} />
       <ChatZone
         chat={chat}
         sendMessage={sendMessage}

@@ -42,8 +42,8 @@ This repository contains the source code for chat.io, a real-time chat applicati
    PORT = 5000
    JWT_SECRET =<secret_code>
    JWT_EXP = 30d
-   
-4. Start the development server/socket/client:
+
+4. Start the development server in socket/server/client:
 
    ````bash
    npm run dev
@@ -65,7 +65,7 @@ This project is licensed under the [MIT License](LICENSE).
 ## Acknowledgements
 
 - [Socket.IO](https://socket.io/)
-- [create vite@latest](https://vitejs.dev/guide/)
+- [Create vite@latest](https://vitejs.dev/guide/)
 - [Express.js](https://expressjs.com/)
 - [MongoDB](https://www.mongodb.com/)
 

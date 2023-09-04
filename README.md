@@ -30,8 +30,6 @@ This repository contains the source code for chat.io, a real-time chat applicati
 
    ```
 
-   ````
-
 2. Install the dependencies:
 
    ````bash
@@ -39,8 +37,6 @@ This repository contains the source code for chat.io, a real-time chat applicati
    cd Chat.io/server && npm install
    cd Chat.io/socket && npm install
    ```
-
-   ````
 
 3. Create a `.env` file in the server directory and provide the following environment variables:
 
@@ -52,15 +48,11 @@ This repository contains the source code for chat.io, a real-time chat applicati
 
    ```
 
-   ````
-
 4. Start the development server/socket/client:
 
    ````bash
    npm run dev
    ```
-
-   ````
 
 5. Open your browser and visit `http://localhost:5173` to access the chat.io application.
 

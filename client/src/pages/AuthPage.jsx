@@ -49,48 +49,56 @@ export const AuthPage = () => {
         <div className="form-subtitle">Log in to get started</div>
 
         <div className="auth">
-          <div className="auth-label">Username</div>
-          <input
-            className="auth-input"
-            name="username"
-            onChange={(e) => {
-              setUsername(e.target.value);
-              setWrongUsername(false);
-            }}
+          <div
+            className="input-elm"
             style={{
               border: wrongUsername ? "1px solid red" : "",
             }}
-          />
-          {hidePass ? (
-            <BsEyeSlash
-              style={{ background: "none", color: "white" }}
-              className="form-eye"
-              onClick={() =>
-                hidePass ? setHidePass(false) : setHidePass(true)
-              }
+          >
+            <div className="auth-label">Username</div>
+            <input
+              className="auth-input"
+              name="username"
+              onChange={(e) => {
+                setUsername(e.target.value);
+                setWrongUsername(false);
+              }}
             />
-          ) : (
-            <BsEye
-              style={{ background: "none", color: "white" }}
-              className="form-eye"
-              onClick={() =>
-                hidePass ? setHidePass(false) : setHidePass(true)
-              }
-            />
-          )}
-          <div className="auth-label">Password</div>
-          <input
-            className="auth-input"
-            type={!hidePass ? "text" : "password"}
+          </div>
+          <div
+            className="input-elm"
             style={{
-              marginBottom: "24px",
+              // marginBottom: "24px",
               border: wrongPassword ? "1px solid red" : "",
             }}
-            onChange={(e) => {
-              setPassword(e.target.value);
-              setWrongPassword(false);
-            }}
-          />
+          >
+            <div className="auth-label">Password</div>
+            <div className="input-container">
+              <input
+                className="auth-input"
+                type={!hidePass ? "text" : "password"}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  setWrongPassword(false);
+                }}
+              />
+              {hidePass ? (
+                <BsEyeSlash
+                  className="eye-svg"
+                  onClick={() =>
+                    hidePass ? setHidePass(false) : setHidePass(true)
+                  }
+                />
+              ) : (
+                <BsEye
+                  className="eye-svg"
+                  onClick={() =>
+                    hidePass ? setHidePass(false) : setHidePass(true)
+                  }
+                />
+              )}
+            </div>
+          </div>
           <button className="auth-button" type="submit">
             Enter
           </button>

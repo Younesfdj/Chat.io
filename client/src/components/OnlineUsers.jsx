@@ -1,5 +1,5 @@
 import { BsFillPersonFill } from "react-icons/bs";
-const OnlineUsers = ({ onlineUsers }) => {
+const OnlineUsers = ({ onlineUsers, currentUser }) => {
   return (
     <div>
       <div className="online-users-h">
@@ -9,7 +9,7 @@ const OnlineUsers = ({ onlineUsers }) => {
         {onlineUsers.map((usr) => {
           return (
             <div className="online-user" key={usr}>
-              {usr}
+              {usr === currentUser ? "You" : usr}
               <p style={{ color: "#00FF00" }}>Online</p>
             </div>
           );

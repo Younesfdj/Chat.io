@@ -96,7 +96,7 @@ export const ChatPage = () => {
   }
   return (
     <div className="container">
-      <SideBar onlineUsers={onlineUsers} />
+      <SideBar onlineUsers={onlineUsers} currentUser={currentUser} />
       <ChatZone
         chat={chat}
         sendMessage={sendMessage}

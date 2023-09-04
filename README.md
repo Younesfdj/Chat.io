@@ -1,4 +1,4 @@
-# Project Name: chat.io - Real-Time Chat App
+# Chat.io - Real-Time Chat App
 
 This repository contains the source code for chat.io, a real-time chat application built with the MERN stack (MongoDB, Express, React, Node.js) and Socket.IO. The app allows users to engage in live chat conversations, displays online users, and features a modern and simple design that is responsive across all devices.
 

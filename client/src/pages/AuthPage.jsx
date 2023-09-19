@@ -43,7 +43,7 @@ export const AuthPage = () => {
 
   return (
     <div className="background">
-      <form onSubmit={onSubmit} className="form-card">
+      <form onSubmit={onSubmit} className="form-card" autoComplete="off">
         <div className="form-title">Welcome 👋</div>
 
         <div className="form-subtitle">Log in to get started</div>

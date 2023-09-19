@@ -306,4 +306,7 @@ nav {
   .container {
     grid-template-columns: 16rem auto;
   }
+  ::-webkit-scrollbar {
+    display: block;
+  }
 }
